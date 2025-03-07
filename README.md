@@ -1,7 +1,7 @@
 ## Instalação
 
 ```
-git clone git@gitlab.com:e2ti/cpt-novo.git
+git clone
 ```
 
 ## Requisitos ambiente de desenvolvimento
@@ -13,7 +13,7 @@ git clone git@gitlab.com:e2ti/cpt-novo.git
 
 ## Iniciando projeto
 
-#### Antes de iniciar o projeto, lembre-se de criar o schema `cpt` no banco de dados do e-cidade (tanto local e produção). A migração de dados do schema antigo (e2ti) é feito nos seeders do projeto.
+#### Antes de iniciar o projeto, certifique-se de ter um banco de dados postgres
 
 ```
 $ cp .env.example .env
@@ -23,16 +23,4 @@ $ php artisan key:generate
 $ php artisan migrate
 $ php artisan serve
 $ npm run dev
-```
-
-#### Se a base dados da cidade não tem as tabela cpt no schema `e2ti`, executar apenas os seeders `UsersSeeder` e `PermissionSeeder`
-
-```
-$ php artisan db:seed --class=UsersSeeder
-$ php artisan db:seed --class=PermissionSeeder
-```
-#### Se tiver e precisar migrar os dados
-
-```
-$ php artisan db:seed
 ```
