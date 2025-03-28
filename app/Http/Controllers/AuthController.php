@@ -19,9 +19,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
 
-            return redirect()->route('RestrictedArea');
+            return response()->json(['message' => 'Sucesso ao realizar login'], 200);
         } else {
-            return redirect()->route('login')->with('error', 'Usuário ou senha inválidos');
+            return response()->json(['password' => true, 'message' => 'Senha incorreta!'], 400);
         }
     }
 
