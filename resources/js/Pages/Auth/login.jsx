@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 export default function Login() {
     const [values, setValues] = useState({
-        login: "",
+        name: "",
         password: "",
     });
 
@@ -22,7 +22,7 @@ export default function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        if (!values.login || !values.password) {
+        if (!values.name || !values.password) {
             return;
         }
 
@@ -36,7 +36,7 @@ export default function Login() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "100vh"
+                height: "100vh",
             }}
         >
             <Typography variant="h4" sx={{ mb: 3 }}>
@@ -44,16 +44,16 @@ export default function Login() {
             </Typography>
             <Box sx={{ mb: 2 }}>
                 <TextField
-                    label="Login"
-                    id="login"
+                    label="Nome"
+                    id="name"
                     variant="outlined"
-                    value={values.login}
+                    value={values.name}
                     onChange={handleChange}
                 />
             </Box>
             <Box sx={{ mb: 2 }}>
                 <TextField
-                    label="Password"
+                    label="Senha"
                     id="password"
                     variant="outlined"
                     type="password"

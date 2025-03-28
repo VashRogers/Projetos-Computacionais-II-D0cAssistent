@@ -14,11 +14,11 @@ class AuthController extends Controller
 
     public function authentication(LoginRequest $request)
     {
+
         $credentials = $request->validated();
 
-        $credentials['password'] = md5($credentials['password']);
-
         if (Auth::attempt($credentials)) {
+
             return redirect()->route('RestrictedArea');
         } else {
             return redirect()->route('login')->with('error', 'Usuário ou senha inválidos');
