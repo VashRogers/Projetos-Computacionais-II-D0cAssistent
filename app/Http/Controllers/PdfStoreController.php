@@ -6,14 +6,27 @@ use App\Models\PdfFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PdfStoreController extends Controller
 {
 
+    protected $pdfFiles;
+
+    public function __construct(PdfFile $pdfFiles)
+    {
+        $this->pdfFiles = $pdfFiles;
+    }
+
     public function index()
     {
+        $userPdfs = $this->pdfFiles->getPdfsFromAuthenticatedUser();
+
         return inertia(
-            'RestrictedArea/PdfStore/index'
+            'RestrictedArea/PdfStore/index',
+            [
+                "pdfs" => $userPdfs,
+            ]
         );
     }
 
@@ -33,13 +46,39 @@ class PdfStoreController extends Controller
         $pdf->title = $validated['title'];
         $pdf->size = $file->getSize(); // em bytes
         $pdf->description = $validated['description'] ?? null;
-        $pdf->file_path = $filePath; // caso queira salvar o caminho
+        $pdf->file_path = $filePath;
+        $pdf->user_id = Auth::id(); // associa ao usuário autenticado
         $pdf->save();
 
         return response()->json([
             'message' => 'PDF armazenado com sucesso!',
             'pdf' => $pdf,
         ]);
+    }
+
+    public function destroy($id)
+    {
+        // Busca o PDF
+        $pdf = PdfFile::findOrFail($id);
+
+        // Verifica se o PDF pertence ao usuário autenticado
+        if ($pdf->user_id !== Auth::id()) {
+            return response()->json([
+                'message' => 'Você não tem permissão para deletar este PDF.'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        // Remove o arquivo físico se existir
+        if (Storage::disk('public')->exists($pdf->file_path)) {
+            Storage::disk('public')->delete($pdf->file_path);
+        }
+
+        // Deleta o registro no banco
+        $pdf->delete();
+
+        return response()->json([
+            'message' => 'PDF deletado com sucesso.'
+        ], Response::HTTP_OK);
     }
 
     public function download($id)

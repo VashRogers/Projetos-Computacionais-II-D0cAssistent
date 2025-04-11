@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('pdfs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');             // Título do arquivo
-            $table->string('file_path');
-            $table->unsignedBigInteger('size');  // Tamanho do arquivo em bytes
-            $table->text('description')->nullable(); // Descrição (opcional)
-            $table->timestamps();                // created_at e updated_at
+            $table->string('title');                   // Título do arquivo
+            $table->string('file_path');               // Caminho do arquivo
+            $table->unsignedBigInteger('size');        // Tamanho do arquivo em bytes
+            $table->text('description')->nullable();   // Descrição (opcional)
+            $table->unsignedBigInteger('user_id');     // Relacionamento com o usuário
+            $table->timestamps();                      // created_at e updated_at
+
+            // Foreign key constraint
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
