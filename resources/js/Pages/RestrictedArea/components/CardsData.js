@@ -19,7 +19,7 @@ export async function CardsData() {
         {
             title: "ANOTAÇÕES",
             icon: IoDocumentText,
-            url: "",
+            url: "restricted-area/text-store",
             desc: "Anotações em geral",
         },
     ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImagensController;
 use App\Http\Controllers\PdfStoreController;
 use App\Http\Controllers\RestrictedAreaController;
+use App\Http\Controllers\TextController;
 use App\Http\Middleware\CheckAuthMiddleware;
 
 Route::get('/', [HomeController::class, "index"])->name('home');
@@ -25,6 +26,11 @@ Route::group(["middleware" => [CheckAuthMiddleware::class]], function () {
         Route::get("/imagens-store", [ImagensController::class, "index"]);
         Route::post('/imagens', [ImagensController::class, 'store']);
         Route::get('/download/imagens/{id}', [ImagensController::class, 'download']);
+
+        //texto
+        Route::get("/text-store", [TextController::class, "index"]);
+        Route::post('/text', [TextController::class, 'store']);
+        Route::get('/download/text/{id}', [TextController::class, 'download']);
     });
 });
 
