@@ -13,7 +13,7 @@ export async function CardsData() {
         {
             title: "IMAGENS",
             icon: FaRegFileImage,
-            url: "",
+            url: "restricted-area/imagens-store",
             desc: "Armazenamento de imagens",
         },
         {
