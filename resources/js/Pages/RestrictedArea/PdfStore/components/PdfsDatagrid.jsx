@@ -2,6 +2,7 @@ import React from "react";
 import { CustomDataGrid } from "../../../../Components/CustomDataGrid";
 import { Stack } from "@mui/material";
 import { ShowPdfComponent } from "./ShowPdfComponent";
+import { DeletePdfComponent } from "./DeletePdfComponent";
 
 export function PdfsDatagrid(props) {
     const columns = [
@@ -11,6 +12,7 @@ export function PdfsDatagrid(props) {
             return(
                 <Stack direction="row">
                     <ShowPdfComponent pdfId={params.row.id} path={params.row.file_path} />
+                    <DeletePdfComponent pdfId={params.row.id} />
                 </Stack>
             )
         }}

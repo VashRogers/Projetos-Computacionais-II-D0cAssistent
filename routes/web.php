@@ -21,6 +21,7 @@ Route::group(["middleware" => [CheckAuthMiddleware::class]], function () {
         Route::get("/pdf-store", [PdfStoreController::class, "index"]);
         Route::post('/pdfs', [PdfStoreController::class, 'store']);
         Route::get('/download/pdf/{id}', [PdfStoreController::class, 'download']);
+        Route::delete("/pdf-store/{id}", [PdfStoreController::class, "destroy"]);
 
         //Imagens
         Route::get("/imagens-store", [ImagensController::class, "index"]);

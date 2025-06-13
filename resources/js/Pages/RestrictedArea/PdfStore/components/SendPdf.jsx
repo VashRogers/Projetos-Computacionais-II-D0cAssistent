@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Api from "../../../../api";
+import { router } from "@inertiajs/react";
 
 export function SendPdf() {
     const [open, setOpen] = useState(false);
@@ -65,6 +66,8 @@ export function SendPdf() {
                 setTitle("");
                 setDescription("");
                 setPdfFile(null);
+                router.reload();
+                setOpen(false);
             }
         } catch (err) {
             setError("Erro ao enviar PDF.");

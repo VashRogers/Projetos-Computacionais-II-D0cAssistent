@@ -7,7 +7,7 @@ import { TextDatagrid } from "./components/TextDatagrid";
 import { SendText } from "./components/SendText";
 
 export default function TextStore({ texts }) {
-    console.log(texts)
+
     return (
         <ContainerForm>
             <Box p={1}>
