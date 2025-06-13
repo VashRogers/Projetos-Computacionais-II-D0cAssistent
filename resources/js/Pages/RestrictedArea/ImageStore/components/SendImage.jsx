@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Api from "../../../../api";
+import { router } from "@inertiajs/react";
 
 export function SendImage() {
     const [open, setOpen] = useState(false);
@@ -62,11 +63,15 @@ export function SendImage() {
         formData.append("image_file", ImageFile);
 
         try {
-            const response = await Api.post("restricted-area/imagens", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            const response = await Api.post(
+                "restricted-area/imagens",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
 
             if (response) {
                 setMessage("Imagem enviada com sucesso!");
@@ -74,6 +79,8 @@ export function SendImage() {
                 setTitle("");
                 setDescription("");
                 setImageFile(null);
+                router.reload();
+                setOpen(false);
             }
         } catch (err) {
             setError("Erro ao enviar PDF.");

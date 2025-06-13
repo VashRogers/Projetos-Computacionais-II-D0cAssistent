@@ -2,6 +2,7 @@ import React from "react";
 import { CustomDataGrid } from "../../../../Components/CustomDataGrid";
 import { Stack } from "@mui/material";
 import { ShowImagensComponent } from "./ShowImagensComponent";
+import { DeleteImagensComponent } from "./DeleteImagensComponent";
 
 export function ImagensDatagrid(props) {
     const columns = [
@@ -11,6 +12,7 @@ export function ImagensDatagrid(props) {
             return(
                 <Stack direction="row">
                     <ShowImagensComponent imagemId={params.row.id} path={params.row.file_path} />
+                    <DeleteImagensComponent  id={params.row.id}/>
                 </Stack>
             )
         }}

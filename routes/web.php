@@ -27,6 +27,8 @@ Route::group(["middleware" => [CheckAuthMiddleware::class]], function () {
         Route::get("/imagens-store", [ImagensController::class, "index"]);
         Route::post('/imagens', [ImagensController::class, 'store']);
         Route::get('/download/imagens/{id}', [ImagensController::class, 'download']);
+        Route::delete("/imagens/{id}", [ImagensController::class, "destroy"]);
+
 
         //texto
         Route::get("/text-store", [TextController::class, "index"]);
