@@ -11,13 +11,14 @@ import { MdOutlineDarkMode } from "react-icons/md";
 import { useTheme } from "@mui/material";
 import { FaRegUser } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { router } from "@inertiajs/react";
 
 export default function Header() {
     const { user } = useUserContext();
     const { isDesktop } = useResponsive("sm");
     const { mode, toggleTheme } = useContext(ThemeContext);
     const theme = useTheme();
-    console.log("user: ", user)
+    console.log("user: ", user);
     return (
         <AppBar
             position="static"
@@ -68,9 +69,7 @@ export default function Header() {
                             },
                         }}
                     >
-                        {isDesktop
-                            ? "D0cAssistent"
-                            : "D0cAssistent"}
+                        {isDesktop ? "D0cAssistent" : "D0cAssistent"}
                     </Typography>
                 </Box>
             </CustomLink>
@@ -83,25 +82,35 @@ export default function Header() {
                 }}
             >
                 {user == null && (
-                    <CustomLink href="/login">
-                        <Box display="flex" alignItems="end" gap={1}>
-                            <FaRegUser fontSize={isDesktop ? 27 : 20} />
-                            <Typography
-                                fontWeight="bold"
-                                color="white"
-                                sx={{
-                                    fontSize: {
-                                        xs: "10px",
-                                        sm: "11px",
-                                        md: "15px",
-                                        lg: "16px",
-                                    },
-                                }}
-                            >
-                                Autenticação
-                            </Typography>
-                        </Box>
-                    </CustomLink>
+                    // <CustomLink href="/login">
+                    <Box
+                        display="flex"
+                        alignItems="end"
+                        gap={1}
+                        onClick={() => {
+                            router.visit("/login");
+                            // console.log("teste")
+                        }}
+                        sx={{ cursor: "pointer" }}
+                    >
+                        <FaRegUser fontSize={isDesktop ? 27 : 20} />
+
+                        <Typography
+                            fontWeight="bold"
+                            color="white"
+                            sx={{
+                                fontSize: {
+                                    xs: "10px",
+                                    sm: "11px",
+                                    md: "15px",
+                                    lg: "16px",
+                                },
+                            }}
+                        >
+                            Autenticação
+                        </Typography>
+                    </Box>
+                    // </CustomLink>
                 )}
 
                 {user && (
