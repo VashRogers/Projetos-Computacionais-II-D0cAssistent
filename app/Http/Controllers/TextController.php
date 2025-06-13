@@ -53,6 +53,31 @@ class TextController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $text = Text::findOrFail($id);
+
+        if ($text->user_id !== Auth::id()) {
+            return response()->json([
+                'message' => 'Você não tem permissão para editar este texto.'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $validated = $request->validate([
+            'text' => 'required|string',
+            'title' => 'required|string|max:255',
+        ]);
+
+        $text->title = $validated['title'];
+        $text->text = $validated['text'];
+        $text->save();
+
+        return response()->json([
+            'message' => 'Texto atualizado com sucesso!',
+            'text' => $text,
+        ]);
+    }
+
     public function destroy($id)
     {
         // Busca o texto
@@ -71,21 +96,5 @@ class TextController extends Controller
         return response()->json([
             'message' => 'Texto deletado com sucesso.'
         ], Response::HTTP_OK);
-    }
-
-    public function download($id)
-    {
-        // Busca o registro no banco de dados
-        $pdf = PdfFile::findOrFail($id);
-
-        // Verifica se o arquivo existe no storage
-        if (!Storage::disk('public')->exists($pdf->file_path)) {
-            return response()->json([
-                'message' => 'Arquivo não encontrado.',
-            ], Response::HTTP_NOT_FOUND);
-        }
-
-        // Retorna o download
-        return Storage::disk('public')->download($pdf->file_path, $pdf->title . '.pdf');
     }
 }

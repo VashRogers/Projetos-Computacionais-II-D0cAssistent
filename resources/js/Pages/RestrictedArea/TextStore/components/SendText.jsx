@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Api from "../../../../api";
+import { router } from "@inertiajs/react";
 
 export function SendText() {
     const [open, setOpen] = useState(false);
@@ -44,6 +45,8 @@ export function SendText() {
                 setError("");
                 setTitle("");
                 setText("");
+                router.reload();
+                setOpen(false);
             }
         // eslint-disable-next-line no-unused-vars
         } catch (err) {

@@ -35,6 +35,11 @@ Route::group(["middleware" => [CheckAuthMiddleware::class]], function () {
         Route::post('/text', [TextController::class, 'store']);
         Route::get('/download/text/{id}', [TextController::class, 'download']);
     });
+    // Rota para atualizar anotação
+    Route::put('/texts/{id}', [TextController::class, 'update'])->name('texts.update');
+
+    // Rota para deletar anotação
+    Route::delete('/texts/{id}', [TextController::class, 'destroy'])->name('texts.destroy');
 });
 
 
